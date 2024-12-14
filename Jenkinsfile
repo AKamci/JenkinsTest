@@ -4,16 +4,18 @@ pipeline {
     stages {
         stage('Build') {
             when {
-                branch 'dev'
+                branch 'dev' // Sadece 'dev' branch'inde çalışacak
             }
             steps {
                 echo 'Building on dev...'
+                echo 'Waiting for 5 minutes...'
+                sleep time: 5, unit: 'MINUTES' // 5 dakika bekleme
                 // Örneğin: sh 'mvn clean install'
             }
         }
         stage('Test') {
             when {
-                branch 'feature/*'
+                branch 'feature/*' // 'feature/*' isimli branch'lerde çalışacak
             }
             steps {
                 echo 'Testing feature branch...'
@@ -22,7 +24,7 @@ pipeline {
         }
         stage('Integration Test') {
             when {
-                branch 'stable'
+                branch 'stable' // Sadece 'stable' branch'inde çalışacak
             }
             steps {
                 echo 'Running integration tests on stable...'
@@ -31,7 +33,7 @@ pipeline {
         }
         stage('Staging Deployment') {
             when {
-                branch 'stage'
+                branch 'stage' // Sadece 'stage' branch'inde çalışacak
             }
             steps {
                 echo 'Deploying to staging...'
@@ -40,7 +42,7 @@ pipeline {
         }
         stage('Production Deployment') {
             when {
-                branch 'prod'
+                branch 'prod' // Sadece 'prod' branch'inde çalışacak
             }
             steps {
                 echo 'Deploying to production...'
